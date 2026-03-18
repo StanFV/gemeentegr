@@ -17,10 +17,7 @@
   // ============================================================
 
   const SUPABASE_URL = "https://eggsoituawvddgmmuygt.supabase.co";
-  //  👆 Bijvoorbeeld: "https://abcdefgh.supabase.co"
-
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnZ3NvaXR1YXd2ZGRnbW11eWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NTg3MzQsImV4cCI6MjA4OTQzNDczNH0.GP1ijMnd0JW9VRJ_XXzGQnZCncLjQhWMMNdIOblHAxQ";
-  //  👆 Bijvoorbeeld: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 
   // ============================================================
   // 🚫 HIERONDER NIETS AANPASSEN
@@ -33,6 +30,9 @@
   :root {
     --red: #c8102e;
     --orange: #ff6a00;
+    --gold: #FFD700;
+    --silver: #C0C0C0;
+    --bronze: #CD7F32;
     --bg: #0d0d1a;
     --bg2: #1a1a3e;
     --card: rgba(255,255,255,0.045);
@@ -52,40 +52,26 @@
   header {
     background: linear-gradient(90deg, var(--red) 0%, var(--orange) 100%);
     padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     box-shadow: 0 4px 24px rgba(200,16,46,0.4);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    flex-wrap: wrap;
-    gap: 12px;
+    position: sticky; top: 0; z-index: 100;
+    flex-wrap: wrap; gap: 12px;
   }
   header h1 { font-family: 'Playfair Display', serif; font-size: 20px; letter-spacing: 0.5px; }
   header p  { font-size: 11px; opacity: 0.8; letter-spacing: 2px; text-transform: uppercase; }
   nav { display: flex; gap: 8px; flex-wrap: wrap; }
   nav button {
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #fff;
-    padding: 7px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 13px;
-    font-family: inherit;
-    transition: background 0.2s;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    color: #fff; padding: 7px 16px; border-radius: 20px;
+    cursor: pointer; font-size: 13px; font-family: inherit; transition: background 0.2s;
   }
   nav button:hover, nav button.active { background: rgba(255,255,255,0.3); }
 
   .container { max-width: 700px; margin: 0 auto; padding: 0 20px; }
 
   .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    margin-top: 28px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; margin-top: 28px;
     backdrop-filter: blur(10px);
   }
 
@@ -95,17 +81,11 @@
 
   .btn-primary {
     background: linear-gradient(90deg, var(--red), var(--orange));
-    border: none; color: #fff;
-    padding: 13px 30px; border-radius: 40px;
+    border: none; color: #fff; padding: 13px 30px; border-radius: 40px;
     font-size: 15px; cursor: pointer; font-family: inherit; font-weight: 600;
-    box-shadow: 0 4px 18px rgba(200,16,46,0.35);
-    transition: opacity 0.2s, transform 0.1s;
+    box-shadow: 0 4px 18px rgba(200,16,46,0.35); transition: opacity 0.2s, transform 0.1s;
   }
   .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-  .btn-primary:disabled {
-    background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.35);
-    box-shadow: none; cursor: not-allowed; transform: none;
-  }
   .btn-ghost {
     background: rgba(255,255,255,0.1); border: 1px solid var(--border);
     color: var(--text); padding: 12px 24px; border-radius: 40px;
@@ -148,15 +128,84 @@
 
   .tag { display: inline-block; border-radius: 4px; padding: 3px 9px; font-size: 11px; font-weight: 700; margin: 2px; }
 
-  /* ── OVERVIEW TABS ── */
-  .ov-tabs {
-    display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap;
+  /* ── LEADERBOARD ── */
+  .leaderboard { margin-top: 0; }
+
+  .podium {
+    display: flex; justify-content: center; align-items: flex-end;
+    gap: 12px; margin-bottom: 28px; flex-wrap: wrap;
   }
+  .podium-place {
+    text-align: center; border-radius: 14px; padding: 16px 20px;
+    border: 2px solid; min-width: 120px; flex: 1; max-width: 160px;
+    position: relative;
+  }
+  .podium-place.p1 {
+    background: rgba(255,215,0,0.1); border-color: rgba(255,215,0,0.5);
+    padding-top: 24px;
+  }
+  .podium-place.p2 { background: rgba(192,192,192,0.08); border-color: rgba(192,192,192,0.35); }
+  .podium-place.p3 { background: rgba(205,127,50,0.08); border-color: rgba(205,127,50,0.35); }
+
+  .podium-medal  { font-size: 32px; margin-bottom: 6px; }
+  .podium-name   { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; word-break: break-word; }
+  .podium-score  { font-size: 13px; opacity: 0.7; }
+  .podium-score span { font-weight: 700; }
+
+  .lb-rest {
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .lb-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px; border-bottom: 1px solid var(--border);
+    transition: background 0.2s; cursor: pointer;
+  }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-row:hover { background: rgba(255,255,255,0.04); }
+  .lb-row.open  { background: rgba(255,106,0,0.06); }
+  .lb-rank  { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; width: 32px; text-align: center; opacity: 0.5; flex-shrink: 0; }
+  .lb-name  { font-weight: 600; font-size: 15px; flex: 1; }
+  .lb-score-badge {
+    font-size: 12px; background: rgba(255,255,255,0.08);
+    border: 1px solid var(--border); border-radius: 20px;
+    padding: 4px 12px; flex-shrink: 0;
+  }
+  .lb-score-badge.perfect { background: rgba(50,200,100,0.15); border-color: rgba(50,200,100,0.4); color: #32c864; }
+
+  .lb-detail {
+    padding: 16px 18px 18px 18px;
+    border-top: 1px solid var(--border);
+    background: rgba(0,0,0,0.15);
+    display: none;
+  }
+  .lb-detail.open { display: block; }
+
+  /* ── OFFICIAL RESULTS BANNER ── */
+  .results-banner {
+    background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,106,0,0.08));
+    border: 1px solid rgba(255,215,0,0.25);
+    border-radius: 14px; padding: 20px 22px; margin-top: 28px;
+  }
+  .results-banner h3 {
+    font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 14px;
+  }
+  .results-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px;
+  }
+  .result-item {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.05); border-radius: 8px; padding: 8px 10px;
+    font-size: 13px;
+  }
+  .result-seats { font-weight: 700; margin-left: auto; }
+
+  /* ── OVERVIEW TABS ── */
+  .ov-tabs { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
   .ov-tab {
     background: rgba(255,255,255,0.07); border: 1px solid var(--border);
     color: var(--text); padding: 8px 18px; border-radius: 20px;
-    font-size: 13px; cursor: pointer; font-family: inherit; font-weight: 600;
-    transition: all 0.2s;
+    font-size: 13px; cursor: pointer; font-family: inherit; font-weight: 600; transition: all 0.2s;
   }
   .ov-tab:hover  { background: rgba(255,255,255,0.14); }
   .ov-tab.active { background: linear-gradient(90deg, var(--red), var(--orange)); border-color: transparent; color: #fff; }
@@ -177,47 +226,29 @@
   .detail-row .party-name { width: 110px; }
   .detail-seats { font-weight: 700; width: 72px; text-align: right; flex-shrink: 0; }
 
-  /* ── PARTY FILTER VIEW ── */
+  /* ── PARTY FILTER ── */
   .party-filter-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 10px; margin-top: 16px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-top: 16px;
   }
   .party-filter-btn {
-    border: 2px solid transparent; border-radius: 12px;
-    padding: 14px 10px; text-align: center; cursor: pointer;
-    font-family: inherit; font-size: 13px; font-weight: 700;
-    color: #fff; transition: transform 0.15s, box-shadow 0.15s;
-    position: relative;
+    border: 2px solid transparent; border-radius: 12px; padding: 14px 10px;
+    text-align: center; cursor: pointer; font-family: inherit; font-size: 13px;
+    font-weight: 700; color: #fff; transition: transform 0.15s, box-shadow 0.15s;
   }
   .party-filter-btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
   .party-filter-btn.chosen { border-color: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,0.25); }
-  .party-filter-btn .seats-2022 {
-    display: block; font-size: 11px; font-weight: 400; opacity: 0.75; margin-top: 4px;
-  }
+  .party-filter-btn .seats-2022 { display: block; font-size: 11px; font-weight: 400; opacity: 0.75; margin-top: 4px; }
 
-  .party-result-panel {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 24px; margin-top: 20px;
-  }
-  .party-result-header {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;
-  }
-  .party-result-header h3 {
-    font-family: 'Playfair Display', serif; font-size: 22px;
-  }
-  .party-result-header .badge-2022 {
-    font-size: 12px; background: rgba(255,255,255,0.1);
-    border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px;
-  }
+  .party-result-panel { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-top: 20px; }
+  .party-result-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+  .party-result-header h3 { font-family: 'Playfair Display', serif; font-size: 22px; }
+  .party-result-header .badge-2022 { font-size: 12px; background: rgba(255,255,255,0.1); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; }
 
-  .voter-row {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
-  }
+  .voter-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
   .voter-name   { width: 120px; font-size: 13px; font-weight: 600; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .voter-bar-wrap { flex: 1; background: rgba(255,255,255,0.06); border-radius: 4px; height: 10px; overflow: hidden; min-width: 0; }
   .voter-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
-  .voter-seats  { width: 64px; text-align: right; font-size: 13px; font-weight: 700; flex-shrink: 0; }
-  .voter-avg    { font-size: 12px; opacity: 0.55; }
+  .voter-seats  { width: 72px; text-align: right; font-size: 13px; font-weight: 700; flex-shrink: 0; }
 
   /* ── PARLIAMENT ── */
   .parliament-wrap   { text-align: center; margin-top: 16px; }
@@ -230,21 +261,24 @@
   .success-wrap .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
 
   .home-parties { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
-
+  .section-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.4; margin-bottom: 12px; margin-top: 24px; }
   .center-msg      { text-align: center; padding: 60px 24px; opacity: 0.5; }
   .center-msg .big { font-size: 48px; margin-bottom: 10px; }
-
   .error-msg { color: #ff5555; font-size: 13px; margin-top: 10px; }
 
-  .section-label {
-    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-    opacity: 0.4; margin-bottom: 12px; margin-top: 24px;
+  .diff-chip {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    border-radius: 20px; padding: 2px 8px; margin-left: 6px; vertical-align: middle;
   }
+  .diff-chip.exact  { background: rgba(50,200,100,0.2); color: #32c864; }
+  .diff-chip.close  { background: rgba(255,165,0,0.2);  color: #FFA500; }
+  .diff-chip.off    { background: rgba(255,85,85,0.2);   color: #ff5555; }
 
   @media (max-width: 500px) {
     .card { padding: 20px 16px; }
     .card-title { font-size: 22px; }
     .party-filter-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+    .podium-place { min-width: 90px; padding: 12px 10px; }
   }
 </style>
 
@@ -257,6 +291,7 @@
     <button id="nav-home"     onclick="showView('home')">Home</button>
     <button id="nav-form"     onclick="showView('form')">Voorspel</button>
     <button id="nav-overview" onclick="showView('overview')">Overzicht (<span id="count">0</span>)</button>
+    <button id="nav-score"    onclick="showView('score')">🏆 Uitslag</button>
   </nav>
 </header>
 
@@ -267,12 +302,21 @@
   <div id="view-home" class="card" style="display:none">
     <div class="card-title">Wie pakt de <span class="accent">meeste zetels</span> in Hardenberg?</div>
     <p class="muted" style="margin-top:8px;margin-bottom:24px">
-      33 zetels. 11 partijen. Jouw voorspelling. Vul in hoe jij denkt dat de gemeenteraad eruit
-      komt te zien — en vergelijk daarna met je vrienden. 🏆
+      33 zetels. 11 partijen. De officiële uitslag is binnen — bekijk wie het beste heeft voorspeld! 🏆
     </p>
-    <button class="btn-primary" onclick="showView('form')">Doe mee →</button>
+    <button class="btn-primary" onclick="showView('score')">Bekijk de uitslag →</button>
     <p class="muted" style="margin-top:12px;font-size:13px" id="home-count-msg"></p>
-    <div class="home-parties" id="home-parties"></div>
+
+```
+<!-- Official results banner on home -->
+<div class="results-banner" style="margin-top:24px">
+  <h3>🗳️ Officiële uitslag ronde 1</h3>
+  <div class="results-grid" id="home-results-grid"></div>
+</div>
+
+<div class="home-parties" id="home-parties"></div>
+```
+
   </div>
 
   <!-- FORM -->
@@ -280,28 +324,19 @@
   <div id="view-form" class="card" style="display:none">
     <div class="card-title">Jouw <span class="accent">voorspelling</span></div>
     <p class="muted" style="margin-bottom:20px">Verdeel precies 33 zetels over de partijen.</p>
-
-```
-<label class="field-label">Jouw naam</label>
-<input type="text" id="input-name" placeholder="Bijv. Jan de Vries" />
-
-<div class="seat-counter remaining" id="seat-counter">
-  <div>
-    <div id="counter-label" style="font-size:13px;opacity:0.75">Zetels nog te verdelen</div>
-    <div id="counter-sub"   style="font-size:11px;opacity:0.45">0 van 33 vergeven</div>
-  </div>
-  <div class="big-num" id="counter-num">33</div>
-</div>
-
-<div id="party-inputs"></div>
-
-<p class="error-msg" id="form-error" style="display:none"></p>
-<button class="btn-primary" id="submit-btn" style="width:100%;margin-top:18px"
-  onclick="submitPrediction()" disabled>
-  Verdeel nog 33 zetels
-</button>
-```
-
+    <label class="field-label">Jouw naam</label>
+    <input type="text" id="input-name" placeholder="Bijv. Jan de Vries" />
+    <div class="seat-counter remaining" id="seat-counter">
+      <div>
+        <div id="counter-label" style="font-size:13px;opacity:0.75">Zetels nog te verdelen</div>
+        <div id="counter-sub"   style="font-size:11px;opacity:0.45">0 van 33 vergeven</div>
+      </div>
+      <div class="big-num" id="counter-num">33</div>
+    </div>
+    <div id="party-inputs"></div>
+    <p class="error-msg" id="form-error" style="display:none"></p>
+    <button class="btn-primary" id="submit-btn" style="width:100%;margin-top:18px"
+      onclick="submitPrediction()" disabled>Verdeel nog 33 zetels</button>
   </div>
 
   <!-- SUCCESS -->
@@ -316,7 +351,7 @@
         <svg id="success-parliament" viewBox="0 0 240 130" style="width:100%;max-width:260px"></svg>
       </div>
       <div class="btn-row">
-        <button class="btn-primary" onclick="showView('overview')">Bekijk alle voorspellingen →</button>
+        <button class="btn-primary" onclick="showView('score')">Bekijk wie wint 🏆</button>
         <button class="btn-ghost"   onclick="resetForm();showView('form')">Nieuwe voorspelling</button>
       </div>
     </div>
@@ -327,26 +362,40 @@
   <div id="view-overview" style="display:none">
     <div class="card">
       <div class="card-title">Alle <span class="accent">voorspellingen</span></div>
-      <p class="muted">Bekijk per persoon of filter op partij om te zien wie iedereen hoeveel zetels geeft.</p>
+      <p class="muted">Bekijk per persoon of filter op partij.</p>
+      <div class="ov-tabs">
+        <button class="ov-tab active" id="tab-persons" onclick="switchTab('persons')">👤 Per persoon</button>
+        <button class="ov-tab"        id="tab-party"   onclick="switchTab('party')">🏛️ Per partij</button>
+      </div>
+    </div>
+    <div id="ov-persons"></div>
+    <div id="ov-party" style="display:none">
+      <div class="card" style="padding-bottom:20px">
+        <p class="section-label">Kies een partij</p>
+        <div class="party-filter-grid" id="party-filter-grid"></div>
+      </div>
+      <div id="party-result-wrap"></div>
+    </div>
+  </div>
+
+  <!-- SCORE / LEADERBOARD -->
+
+  <div id="view-score" style="display:none">
+    <div class="card">
+      <div class="card-title">🏆 Beste <span class="accent">voorspeller</span></div>
+      <p class="muted">Scores op basis van het totale verschil per partij. Hoe lager, hoe beter — 0 punten fout = perfect!</p>
+    </div>
 
 ```
-  <!-- Tab switcher -->
-  <div class="ov-tabs">
-    <button class="ov-tab active" id="tab-persons" onclick="switchTab('persons')">👤 Per persoon</button>
-    <button class="ov-tab"        id="tab-party"   onclick="switchTab('party')">🏛️ Per partij</button>
-  </div>
+<!-- Official results -->
+<div class="results-banner">
+  <h3>🗳️ Officiële uitslag ronde 1</h3>
+  <div class="results-grid" id="score-results-grid"></div>
 </div>
 
-<!-- Per-person list -->
-<div id="ov-persons"></div>
-
-<!-- Per-party filter -->
-<div id="ov-party" style="display:none">
-  <div class="card" style="padding-bottom:20px">
-    <p class="section-label">Kies een partij</p>
-    <div class="party-filter-grid" id="party-filter-grid"></div>
-  </div>
-  <div id="party-result-wrap"></div>
+<!-- Leaderboard -->
+<div class="card leaderboard" id="leaderboard-wrap">
+  <div class="center-msg"><div class="big">⏳</div><p>Laden...</p></div>
 </div>
 ```
 
@@ -359,18 +408,40 @@
   const TABLE       = 'predictions';
 
   const PARTIES = [
-    { name: 'VVD',          color: '#FF6600', seats2022: 3 },
-    { name: 'CDA',          color: '#007A33', seats2022: 9 },
-    { name: 'OPKOERS',      color: '#1A2F5E', seats2022: 7 },
-    { name: 'CHRISTENUNIE', color: '#00A0E3', seats2022: 7 },
-    { name: 'GL/PvdA',      color: '#84B135', seats2022: 3 },
-    { name: 'D66',          color: '#00A862', seats2022: 1 },
-    { name: 'DOEN22',       color: '#E63946', seats2022: 2 },
-    { name: 'SGH',          color: '#6A0572', seats2022: 1 },
-    { name: 'PV29',         color: '#F4A261', seats2022: 0 },
-    { name: 'FVD',          color: '#8B0000', seats2022: 0 },
-    { name: 'SGP',          color: '#003082', seats2022: 0 },
+    { name: 'VVD',          color: '#FF6600', seats2022: 3  },
+    { name: 'CDA',          color: '#007A33', seats2022: 9  },
+    { name: 'OPKOERS',      color: '#1A2F5E', seats2022: 7  },
+    { name: 'CHRISTENUNIE', color: '#00A0E3', seats2022: 7  },
+    { name: 'GL/PvdA',      color: '#84B135', seats2022: 3  },
+    { name: 'D66',          color: '#00A862', seats2022: 1  },
+    { name: 'DOEN22',       color: '#E63946', seats2022: 2  },
+    { name: 'SGH',          color: '#6A0572', seats2022: 1  },
+    { name: 'PV29',         color: '#F4A261', seats2022: 0  },
+    { name: 'FVD',          color: '#8B0000', seats2022: 0  },
+    { name: 'SGP',          color: '#003082', seats2022: 0  },
   ];
+
+  // ── OFFICIËLE UITSLAG ──────────────────────────────────────
+  const OFFICIAL = {
+    'DOEN22':       10,
+    'CDA':           7,
+    'CHRISTENUNIE':  4,
+    'FVD':           4,
+    'VVD':           4,
+    'OPKOERS':       2,
+    'GL/PvdA':       2,
+    'SGP':           1,
+    'D66':           0,
+    'SGH':           0,
+    'PV29':          0,
+  };
+
+  // Score = som van absolute verschillen per partij (lager = beter)
+  function calcScore(pred) {
+    return PARTIES.reduce((sum, p) => {
+      return sum + Math.abs((pred[p.name] || 0) - (OFFICIAL[p.name] || 0));
+    }, 0);
+  }
 
   const { createClient } = supabase;
   const db = createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -386,6 +457,8 @@
     buildHomeParties();
     buildPartyInputs();
     buildPartyFilterGrid();
+    buildResultsGrid('home-results-grid');
+    buildResultsGrid('score-results-grid');
     await loadPredictions();
     showView('home');
   });
@@ -393,9 +466,7 @@
   // ── SUPABASE ──────────────────────────────────────────────
   async function loadPredictions() {
     const { data, error } = await db
-      .from(TABLE)
-      .select('*')
-      .order('submitted_at', { ascending: false });
+      .from(TABLE).select('*').order('submitted_at', { ascending: false });
     if (!error && data) { predictions = data; updateCount(); }
   }
 
@@ -409,29 +480,143 @@
 
   // ── VIEWS ─────────────────────────────────────────────────
   function showView(v) {
-    ['home','form','success','overview'].forEach(id => {
+    ['home','form','success','overview','score'].forEach(id => {
       document.getElementById('view-' + id).style.display = 'none';
     });
     document.getElementById('view-' + v).style.display = 'block';
-    ['home','form','overview'].forEach(id => {
+    ['home','form','overview','score'].forEach(id => {
       document.getElementById('nav-' + id)?.classList.toggle('active', id === v);
     });
     if (v === 'home')     updateHomeMsg();
     if (v === 'overview') renderOverview();
+    if (v === 'score')    renderLeaderboard();
   }
 
-  function updateCount() {
-    document.getElementById('count').textContent = predictions.length;
-  }
+  function updateCount() { document.getElementById('count').textContent = predictions.length; }
 
   function updateHomeMsg() {
-    const el = document.getElementById('home-count-msg');
-    el.textContent = predictions.length === 0
-      ? 'Nog geen voorspellingen. Wees de eerste!'
-      : `${predictions.length} ${predictions.length === 1 ? 'deelnemer' : 'deelnemers'} al ingevuld`;
+    document.getElementById('home-count-msg').textContent = predictions.length === 0
+      ? 'Nog geen voorspellingen.'
+      : `${predictions.length} ${predictions.length === 1 ? 'deelnemer' : 'deelnemers'} hebben voorspeld.`;
   }
 
-  // ── OVERVIEW TABS ─────────────────────────────────────────
+  // ── OFFICIAL RESULTS GRID ─────────────────────────────────
+  function buildResultsGrid(elId) {
+    const grid = document.getElementById(elId);
+    const sorted = [...PARTIES]
+      .filter(p => (OFFICIAL[p.name] || 0) > 0)
+      .sort((a,b) => OFFICIAL[b.name] - OFFICIAL[a.name]);
+
+    sorted.forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'result-item';
+      item.innerHTML = `
+        <div class="party-dot" style="background:${p.color}"></div>
+        <span>${p.name}</span>
+        <span class="result-seats">${OFFICIAL[p.name]}</span>
+      `;
+      grid.appendChild(item);
+    });
+  }
+
+  // ── LEADERBOARD ───────────────────────────────────────────
+  function renderLeaderboard() {
+    const wrap = document.getElementById('leaderboard-wrap');
+
+    if (predictions.length === 0) {
+      wrap.innerHTML = `<div class="center-msg"><div class="big">📭</div><p>Nog geen voorspellingen.</p></div>`;
+      return;
+    }
+
+    const ranked = [...predictions]
+      .map(p => ({ ...p, score: calcScore(p.prediction) }))
+      .sort((a,b) => a.score - b.score);
+
+    const medals = ['🥇','🥈','🥉'];
+    const podiumClasses = ['p1','p2','p3'];
+
+    // Podium (top 3)
+    const topN = ranked.slice(0, Math.min(3, ranked.length));
+    let podiumHtml = '<div class="podium">';
+    // reorder to 2-1-3 display
+    const display = topN.length === 3 ? [topN[1], topN[0], topN[2]] : topN;
+    display.forEach((r, i) => {
+      const realRank = ranked.indexOf(r);
+      podiumHtml += `
+        <div class="podium-place ${podiumClasses[realRank]}">
+          <div class="podium-medal">${medals[realRank]}</div>
+          <div class="podium-name">${r.name}</div>
+          <div class="podium-score"><span>${r.score}</span> punten fout</div>
+        </div>`;
+    });
+    podiumHtml += '</div>';
+
+    // Rest of the list
+    let restHtml = '';
+    if (ranked.length > 3) {
+      restHtml = '<div class="lb-rest">';
+      ranked.slice(3).forEach((r, i) => {
+        restHtml += `
+          <div class="lb-row" id="lbrow-${r.name}" onclick="toggleLbDetail('${r.name}')">
+            <div class="lb-rank">${i + 4}</div>
+            <div class="lb-name">${r.name}</div>
+            <div class="lb-score-badge${r.score === 0 ? ' perfect' : ''}">${r.score === 0 ? '✨ Perfect!' : r.score + ' punten fout'}</div>
+          </div>
+          <div class="lb-detail" id="lbdetail-${r.name}">
+            ${buildScoreDetail(r)}
+          </div>`;
+      });
+      restHtml += '</div>';
+    }
+
+    // Best party detail for top 3
+    const detailsTop = topN.map(r => `
+      <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
+        <div style="font-weight:700;margin-bottom:12px;font-size:14px">${medals[ranked.indexOf(r)]} ${r.name} — detail</div>
+        ${buildScoreDetail(r)}
+      </div>`).join('');
+
+    wrap.innerHTML = podiumHtml + detailsTop + (ranked.length > 3 ? '<div style="margin-top:20px"></div>' + restHtml : '');
+  }
+
+  function buildScoreDetail(rankedPred) {
+    let html = '';
+    const partyScores = PARTIES.map(p => ({
+      party: p,
+      predicted: rankedPred.prediction[p.name] || 0,
+      official: OFFICIAL[p.name] || 0,
+      diff: Math.abs((rankedPred.prediction[p.name] || 0) - (OFFICIAL[p.name] || 0)),
+    })).filter(r => r.predicted > 0 || r.official > 0)
+      .sort((a,b) => a.diff - b.diff);
+
+    partyScores.forEach(r => {
+      const chipClass = r.diff === 0 ? 'exact' : r.diff <= 2 ? 'close' : 'off';
+      const chipText  = r.diff === 0 ? '✓ exact' : (r.predicted > r.official ? `+${r.diff}` : `-${r.diff}`);
+      html += `
+        <div class="detail-row" style="margin-bottom:8px">
+          <div class="party-name" style="width:110px">
+            <div class="party-dot" style="background:${r.party.color}"></div>
+            <span>${r.party.name}</span>
+          </div>
+          <div style="font-size:13px;flex:1">
+            Voorspeld: <strong>${r.predicted}</strong> &nbsp;|&nbsp; Officieel: <strong>${r.official}</strong>
+            <span class="diff-chip ${chipClass}">${chipText}</span>
+          </div>
+        </div>`;
+    });
+    return html;
+  }
+
+  function toggleLbDetail(name) {
+    const row    = document.getElementById('lbrow-'    + name);
+    const detail = document.getElementById('lbdetail-' + name);
+    const isOpen = detail.classList.contains('open');
+    document.querySelectorAll('.lb-row').forEach(r => r.classList.remove('open'));
+    document.querySelectorAll('.lb-detail').forEach(d => d.classList.remove('open'));
+    if (!isOpen) { row.classList.add('open'); detail.classList.add('open'); }
+  }
+
+  // ── OVERVIEW ──────────────────────────────────────────────
   function switchTab(tab) {
     ovTab = tab;
     document.getElementById('tab-persons').classList.toggle('active', tab === 'persons');
@@ -440,39 +625,24 @@
     document.getElementById('ov-party').style.display   = tab === 'party'   ? 'block' : 'none';
   }
 
-  function renderOverview() {
-    renderPersons();
-    switchTab(ovTab);
-  }
+  function renderOverview() { renderPersons(); switchTab(ovTab); }
 
-  // ── PER-PERSON VIEW ───────────────────────────────────────
   function renderPersons() {
     const wrap = document.getElementById('ov-persons');
     wrap.innerHTML = '';
-
     if (predictions.length === 0) {
-      wrap.innerHTML = `<div class="card center-msg">
-        <div class="big">📭</div>
-        <p>Nog geen voorspellingen.</p>
-        <button class="btn-primary" style="margin-top:20px" onclick="showView('form')">Doe mee →</button>
-      </div>`;
+      wrap.innerHTML = `<div class="card center-msg"><div class="big">📭</div><p>Nog geen voorspellingen.</p></div>`;
       return;
     }
-
     predictions.forEach(pred => {
       const card = document.createElement('div');
       card.className = 'pred-card';
       card.id        = 'pred-card-' + pred.name;
-
       const date = new Date(pred.submitted_at).toLocaleDateString('nl-NL', {
         day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit'
       });
-
-      const tags = PARTIES
-        .filter(p => pred.prediction[p.name] > 0)
-        .map(p => `<span class="tag" style="background:${p.color};color:#fff">${p.name}: ${pred.prediction[p.name]}</span>`)
-        .join('');
-
+      const tags = PARTIES.filter(p => pred.prediction[p.name] > 0)
+        .map(p => `<span class="tag" style="background:${p.color};color:#fff">${p.name}: ${pred.prediction[p.name]}</span>`).join('');
       card.innerHTML = `
         <div class="pred-name">${pred.name}</div>
         <div class="pred-date">${date}</div>
@@ -483,9 +653,7 @@
             <p>GEMEENTERAAD</p>
             <svg id="parl-${pred.name}" viewBox="0 0 240 130" style="width:100%;max-width:240px"></svg>
           </div>
-        </div>
-      `;
-
+        </div>`;
       card.addEventListener('click', () => toggleDetail(pred));
       wrap.appendChild(card);
     });
@@ -495,55 +663,39 @@
     const card   = document.getElementById('pred-card-' + pred.name);
     const detail = document.getElementById('detail-'    + pred.name);
     const isOpen = detail.style.display !== 'none';
-
     document.querySelectorAll('.pred-card').forEach(c => c.classList.remove('open'));
     document.querySelectorAll('.detail-panel').forEach(d => d.style.display = 'none');
-
     if (!isOpen) {
       card.classList.add('open');
       detail.style.display = 'block';
-
       const rowWrap = document.getElementById('detail-rows-' + pred.name);
       rowWrap.innerHTML = '';
       PARTIES.forEach(p => {
         const seats = pred.prediction[p.name] || 0;
         if (seats === 0) return;
-        const pct = (seats / TOTAL_SEATS * 100).toFixed(0);
-        const diff2022 = p.seats2022 !== undefined
-          ? seats - p.seats2022
-          : null;
-        const diffHtml = diff2022 !== null && p.seats2022 > 0
-          ? `<span style="font-size:11px;opacity:0.55;margin-left:6px">(${diff2022 >= 0 ? '+' : ''}${diff2022} t.o.v. 2022)</span>`
-          : '';
+        const pct     = (seats / TOTAL_SEATS * 100).toFixed(0);
+        const diff    = seats - (OFFICIAL[p.name] || 0);
+        const diffHtml = `<span class="diff-chip ${diff===0?'exact':Math.abs(diff)<=2?'close':'off'}">${diff===0?'✓ exact':diff>0?'+'+diff:diff}</span>`;
         rowWrap.innerHTML += `
           <div class="detail-row">
-            <div class="party-name">
-              <div class="party-dot" style="background:${p.color}"></div>
-              <span>${p.name}</span>
-            </div>
-            <div class="bar-wrap" style="flex:1">
-              <div class="bar-fill" style="background:${p.color};width:${pct}%"></div>
-            </div>
-            <div class="detail-seats">${seats} zetels${diffHtml}</div>
+            <div class="party-name"><div class="party-dot" style="background:${p.color}"></div><span>${p.name}</span></div>
+            <div class="bar-wrap" style="flex:1"><div class="bar-fill" style="background:${p.color};width:${pct}%"></div></div>
+            <div class="detail-seats">${seats} zetels ${diffHtml}</div>
           </div>`;
       });
-
       drawParliament('parl-' + pred.name, pred.prediction);
     }
   }
 
-  // ── PER-PARTY FILTER VIEW ─────────────────────────────────
+  // ── PARTY FILTER ──────────────────────────────────────────
   function buildPartyFilterGrid() {
     const grid = document.getElementById('party-filter-grid');
     PARTIES.forEach(p => {
       const btn = document.createElement('button');
-      btn.className   = 'party-filter-btn';
-      btn.id          = 'pfbtn-' + p.name;
+      btn.className = 'party-filter-btn';
+      btn.id        = 'pfbtn-' + p.name;
       btn.style.background = p.color;
-      btn.innerHTML = `
-        ${p.name}
-        <span class="seats-2022">${p.seats2022 > 0 ? `2022: ${p.seats2022} zetels` : 'nieuw'}</span>
-      `;
+      btn.innerHTML = `${p.name}<span class="seats-2022">${p.seats2022 > 0 ? `2022: ${p.seats2022}` : 'nieuw'} · officieel: ${OFFICIAL[p.name] || 0}</span>`;
       btn.addEventListener('click', () => selectPartyFilter(p));
       grid.appendChild(btn);
     });
@@ -551,89 +703,61 @@
 
   function selectPartyFilter(party) {
     activeParty = party;
-
-    // Update button styles
-    PARTIES.forEach(p => {
-      const btn = document.getElementById('pfbtn-' + p.name);
-      if (btn) btn.classList.toggle('chosen', p.name === party.name);
-    });
-
+    PARTIES.forEach(p => document.getElementById('pfbtn-' + p.name)?.classList.toggle('chosen', p.name === party.name));
     renderPartyResult(party);
   }
 
   function renderPartyResult(party) {
     const wrap = document.getElementById('party-result-wrap');
-
     if (predictions.length === 0) {
-      wrap.innerHTML = `<div class="card center-msg" style="margin-top:16px">
-        <div class="big">📭</div><p>Nog geen voorspellingen.</p>
-      </div>`;
+      wrap.innerHTML = `<div class="card center-msg" style="margin-top:16px"><div class="big">📭</div><p>Nog geen voorspellingen.</p></div>`;
       return;
     }
+    const rows   = predictions.map(pred => ({ name: pred.name, seats: pred.prediction[party.name] || 0 })).sort((a,b) => b.seats - a.seats);
+    const avg    = rows.reduce((s,r) => s + r.seats, 0) / rows.length;
+    const official = OFFICIAL[party.name] || 0;
+    const maxVal = Math.max(...rows.map(r => r.seats), official, 1);
 
-    // Collect seat values per person for this party
-    const rows = predictions.map(pred => ({
-      name:  pred.name,
-      seats: pred.prediction[party.name] || 0,
-    })).sort((a, b) => b.seats - a.seats);
+    let html = `<div class="party-result-panel">
+      <div class="party-result-header">
+        <div class="party-dot" style="background:${party.color};width:14px;height:14px;border-radius:3px;flex-shrink:0"></div>
+        <h3>${party.name}</h3>
+        <span class="badge-2022">🗳️ Officieel: ${official} zetels</span>
+        ${party.seats2022 > 0 ? `<span class="badge-2022">📊 2022: ${party.seats2022}</span>` : ''}
+      </div>`;
 
-    const avg    = rows.reduce((s, r) => s + r.seats, 0) / rows.length;
-    const maxVal = Math.max(...rows.map(r => r.seats), party.seats2022 || 0, 1);
-
-    const diff2022Text = party.seats2022 > 0
-      ? `2022: ${party.seats2022} zetels`
-      : 'Nieuwe partij (geen zetel in 2022)';
-
-    let html = `
-      <div class="party-result-panel">
-        <div class="party-result-header">
-          <div class="party-dot" style="background:${party.color};width:14px;height:14px;border-radius:3px;flex-shrink:0"></div>
-          <h3>${party.name}</h3>
-          <span class="badge-2022">📊 ${diff2022Text}</span>
+    // Official result bar
+    const pctOfficial = (official / maxVal * 100).toFixed(0);
+    html += `
+      <div class="voter-row" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+        <div class="voter-name" style="color:#FFD700;font-weight:700">✓ Officieel</div>
+        <div class="voter-bar-wrap">
+          <div class="voter-bar-fill" style="background:${party.color};width:${pctOfficial}%"></div>
         </div>
-    `;
+        <div class="voter-seats" style="color:#FFD700">${official}</div>
+      </div>`;
 
-    // 2022 reference bar
-    if (party.seats2022 > 0) {
-      const pct2022 = (party.seats2022 / maxVal * 100).toFixed(0);
-      html += `
-        <div class="voter-row" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
-          <div class="voter-name" style="opacity:0.55">Uitslag 2022</div>
-          <div class="voter-bar-wrap">
-            <div class="voter-bar-fill" style="background:${party.color};opacity:0.4;width:${pct2022}%;
-              background-image: repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(255,255,255,0.1) 4px,rgba(255,255,255,0.1) 8px)">
-            </div>
-          </div>
-          <div class="voter-seats" style="opacity:0.55">${party.seats2022} zetels</div>
-        </div>`;
-    }
-
-    // Per-person rows
     rows.forEach(r => {
-      const pct = (r.seats / maxVal * 100).toFixed(0);
+      const pct  = (r.seats / maxVal * 100).toFixed(0);
+      const diff = r.seats - official;
+      const chipClass = diff===0?'exact':Math.abs(diff)<=2?'close':'off';
+      const chipText  = diff===0?'✓':diff>0?'+'+diff:''+diff;
       html += `
         <div class="voter-row">
           <div class="voter-name">${r.name}</div>
-          <div class="voter-bar-wrap">
-            <div class="voter-bar-fill" style="background:${party.color};width:${pct}%"></div>
-          </div>
-          <div class="voter-seats">${r.seats} zetels</div>
+          <div class="voter-bar-wrap"><div class="voter-bar-fill" style="background:${party.color};width:${pct}%"></div></div>
+          <div class="voter-seats">${r.seats} <span class="diff-chip ${chipClass}">${chipText}</span></div>
         </div>`;
     });
 
-    // Average line
     html += `
       <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);
         display:flex;align-items:center;gap:10px;font-size:13px">
-        <div style="width:110px;opacity:0.6;flex-shrink:0">Gemiddelde</div>
-        <div class="voter-bar-wrap">
-          <div class="voter-bar-fill" style="background:${party.color};opacity:0.7;width:${(avg/maxVal*100).toFixed(0)}%"></div>
-        </div>
-        <div class="voter-seats" style="color:${party.color}">${avg.toFixed(1)} zetels</div>
-      </div>
-    `;
+        <div style="width:120px;opacity:0.6;flex-shrink:0">Gemiddelde</div>
+        <div class="voter-bar-wrap"><div class="voter-bar-fill" style="background:${party.color};opacity:0.7;width:${(avg/maxVal*100).toFixed(0)}%"></div></div>
+        <div class="voter-seats" style="color:${party.color}">${avg.toFixed(1)}</div>
+      </div></div>`;
 
-    html += `</div>`;
     wrap.innerHTML = html;
   }
 
@@ -654,25 +778,17 @@
     PARTIES.forEach(p => {
       const row = document.createElement('div');
       row.className = 'party-row';
-      const seats2022label = p.seats2022 > 0
-        ? `<span style="font-size:10px;opacity:0.45;margin-left:4px">2022: ${p.seats2022}</span>`
-        : `<span style="font-size:10px;opacity:0.35;margin-left:4px">nieuw</span>`;
       row.innerHTML = `
         <div class="party-name">
           <div class="party-dot" style="background:${p.color}"></div>
           <div>
             <div>${p.name}</div>
-            ${seats2022label}
+            <span style="font-size:10px;opacity:0.4">${p.seats2022 > 0 ? `2022: ${p.seats2022}` : 'nieuw'}</span>
           </div>
         </div>
-        <div class="bar-wrap">
-          <div class="bar-fill" id="bar-${p.name}" style="background:${p.color};width:0%"></div>
-        </div>
-        <input type="number" class="seat-input" id="inp-${p.name}"
-          min="0" max="33" value="0"
-          oninput="handleInput('${p.name}', this.value)" />
-        <div class="pct-label" id="pct-${p.name}">—</div>
-      `;
+        <div class="bar-wrap"><div class="bar-fill" id="bar-${p.name}" style="background:${p.color};width:0%"></div></div>
+        <input type="number" class="seat-input" id="inp-${p.name}" min="0" max="33" value="0" oninput="handleInput('${p.name}', this.value)" />
+        <div class="pct-label" id="pct-${p.name}">—</div>`;
       wrap.appendChild(row);
     });
   }
@@ -681,51 +797,38 @@
     const num     = Math.max(0, parseInt(val) || 0);
     const current = currentPrediction[party];
     const total   = Object.values(currentPrediction).reduce((a,b) => a+b, 0);
-    if (total + (num - current) > TOTAL_SEATS) {
-      document.getElementById('inp-' + party).value = current;
-      return;
-    }
+    if (total + (num - current) > TOTAL_SEATS) { document.getElementById('inp-' + party).value = current; return; }
     currentPrediction[party] = num;
-    updateCounterUI();
-    updateBarUI(party);
+    updateCounterUI(); updateBarUI(party);
   }
 
   function updateBarUI(party) {
     const val = currentPrediction[party];
-    const pct = (val / TOTAL_SEATS * 100).toFixed(0);
-    document.getElementById('bar-' + party).style.width = pct + '%';
-    document.getElementById('pct-' + party).textContent = val > 0 ? pct + '%' : '—';
+    document.getElementById('bar-' + party).style.width = (val / TOTAL_SEATS * 100).toFixed(0) + '%';
+    document.getElementById('pct-' + party).textContent = val > 0 ? (val / TOTAL_SEATS * 100).toFixed(0) + '%' : '—';
   }
 
   function updateCounterUI() {
     const total = Object.values(currentPrediction).reduce((a,b) => a+b, 0);
     const rem   = TOTAL_SEATS - total;
     const btn   = document.getElementById('submit-btn');
-
     document.getElementById('counter-num').textContent = rem;
     document.getElementById('counter-sub').textContent = `${total} van ${TOTAL_SEATS} vergeven`;
-
     if (rem === 0) {
       document.getElementById('seat-counter').className    = 'seat-counter done';
       document.getElementById('counter-label').textContent = '✅ Alle zetels verdeeld!';
-      btn.disabled    = false;
-      btn.textContent = 'Verstuur mijn voorspelling 🗳️';
+      btn.disabled = false; btn.textContent = 'Verstuur mijn voorspelling 🗳️';
     } else {
       document.getElementById('seat-counter').className    = 'seat-counter remaining';
       document.getElementById('counter-label').textContent = 'Zetels nog te verdelen';
-      btn.disabled    = true;
-      btn.textContent = `Verdeel nog ${rem} zetel${rem !== 1 ? 's' : ''}`;
+      btn.disabled = true; btn.textContent = `Verdeel nog ${rem} zetel${rem !== 1 ? 's' : ''}`;
     }
   }
 
   function resetForm() {
-    document.getElementById('input-name').value          = '';
-    document.getElementById('form-error').style.display  = 'none';
-    PARTIES.forEach(p => {
-      currentPrediction[p.name] = 0;
-      document.getElementById('inp-' + p.name).value = 0;
-      updateBarUI(p.name);
-    });
+    document.getElementById('input-name').value = '';
+    document.getElementById('form-error').style.display = 'none';
+    PARTIES.forEach(p => { currentPrediction[p.name] = 0; document.getElementById('inp-' + p.name).value = 0; updateBarUI(p.name); });
     updateCounterUI();
   }
 
@@ -733,28 +836,19 @@
     const name  = document.getElementById('input-name').value.trim();
     const errEl = document.getElementById('form-error');
     const total = Object.values(currentPrediction).reduce((a,b) => a+b, 0);
-
     errEl.style.display = 'none';
     if (!name)                 { errEl.textContent = 'Vul je naam in.';            errEl.style.display = 'block'; return; }
     if (total !== TOTAL_SEATS) { errEl.textContent = 'Verdeel precies 33 zetels.'; errEl.style.display = 'block'; return; }
-
     const btn = document.getElementById('submit-btn');
     btn.disabled = true; btn.textContent = 'Opslaan...';
-
     const snap    = { ...currentPrediction };
     const saveErr = await savePrediction(name, snap);
-
     if (saveErr) {
-      errEl.textContent   = 'Opslaan mislukt: ' + saveErr.message;
-      errEl.style.display = 'block';
-      btn.disabled        = false;
-      btn.textContent     = 'Verstuur mijn voorspelling 🗳️';
-      return;
+      errEl.textContent = 'Opslaan mislukt: ' + saveErr.message; errEl.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Verstuur mijn voorspelling 🗳️'; return;
     }
-
     await loadPredictions();
-    document.getElementById('success-name-msg').textContent =
-      `${name} heeft de zetelverdeling ingevuld. Nu wachten op de uitslag...`;
+    document.getElementById('success-name-msg').textContent = `${name} heeft de zetelverdeling ingevuld.`;
     drawParliament('success-parliament', snap);
     showView('success');
   }
@@ -764,25 +858,20 @@
     const svg = document.getElementById(svgId);
     svg.innerHTML = '';
     const seats = [];
-    PARTIES.forEach(p => {
-      for (let i = 0; i < (pred[p.name] || 0); i++) seats.push(p.color);
-    });
+    PARTIES.forEach(p => { for (let i = 0; i < (pred[p.name] || 0); i++) seats.push(p.color); });
     const rows = [5, 7, 9, 12];
     let idx = 0;
     rows.forEach((count, ri) => {
       const radius = 40 + ri * 22;
       for (let si = 0; si < count; si++) {
         const angle = Math.PI + (si / (count - 1)) * Math.PI;
-        const x     = 120 + radius * Math.cos(angle);
-        const y     = 110 + radius * Math.sin(angle);
-        const c     = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        c.setAttribute('cx',      x);
-        c.setAttribute('cy',      y);
-        c.setAttribute('r',       7);
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', 120 + radius * Math.cos(angle));
+        c.setAttribute('cy', 110 + radius * Math.sin(angle));
+        c.setAttribute('r', 7);
         c.setAttribute('fill',    seats[idx] || '#2a2a4a');
         c.setAttribute('opacity', seats[idx] ? 1 : 0.2);
-        svg.appendChild(c);
-        idx++;
+        svg.appendChild(c); idx++;
       }
     });
   }
