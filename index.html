@@ -139,15 +139,29 @@
     display: flex; align-items: center; gap: 12px;
     padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
   }
-  .party-name { width: 105px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .party-name { width: 110px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
   .party-dot  { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-  .bar-wrap   { flex: 1; background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; overflow: hidden; }
-  .bar-fill   { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
-  input[type="number"].seat-input { width: 52px; text-align: center; font-size: 16px; padding: 6px 4px; }
-  .pct-label  { width: 38px; font-size: 12px; opacity: 0.45; text-align: right; }
+  .bar-wrap   { flex: 1; background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; overflow: hidden; min-width: 0; }
+  .bar-fill   { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+  input[type="number"].seat-input { width: 52px; text-align: center; font-size: 16px; padding: 6px 4px; flex-shrink: 0; }
+  .pct-label  { width: 38px; font-size: 12px; opacity: 0.45; text-align: right; flex-shrink: 0; }
 
   .tag { display: inline-block; border-radius: 4px; padding: 3px 9px; font-size: 11px; font-weight: 700; margin: 2px; }
 
+  /* ── OVERVIEW TABS ── */
+  .ov-tabs {
+    display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap;
+  }
+  .ov-tab {
+    background: rgba(255,255,255,0.07); border: 1px solid var(--border);
+    color: var(--text); padding: 8px 18px; border-radius: 20px;
+    font-size: 13px; cursor: pointer; font-family: inherit; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .ov-tab:hover  { background: rgba(255,255,255,0.14); }
+  .ov-tab.active { background: linear-gradient(90deg, var(--red), var(--orange)); border-color: transparent; color: #fff; }
+
+  /* ── PERSON CARDS ── */
   .pred-card {
     background: var(--card); border: 1px solid var(--border);
     border-radius: 14px; padding: 18px 20px; margin-top: 12px;
@@ -160,12 +174,56 @@
 
   .detail-panel { padding: 20px 0 4px 0; }
   .detail-row   { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 13px; }
-  .detail-row .party-name { width: 105px; }
-  .detail-seats { font-weight: 700; width: 72px; text-align: right; }
+  .detail-row .party-name { width: 110px; }
+  .detail-seats { font-weight: 700; width: 72px; text-align: right; flex-shrink: 0; }
 
+  /* ── PARTY FILTER VIEW ── */
+  .party-filter-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px; margin-top: 16px;
+  }
+  .party-filter-btn {
+    border: 2px solid transparent; border-radius: 12px;
+    padding: 14px 10px; text-align: center; cursor: pointer;
+    font-family: inherit; font-size: 13px; font-weight: 700;
+    color: #fff; transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+  }
+  .party-filter-btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+  .party-filter-btn.chosen { border-color: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,0.25); }
+  .party-filter-btn .seats-2022 {
+    display: block; font-size: 11px; font-weight: 400; opacity: 0.75; margin-top: 4px;
+  }
+
+  .party-result-panel {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px; margin-top: 20px;
+  }
+  .party-result-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .party-result-header h3 {
+    font-family: 'Playfair Display', serif; font-size: 22px;
+  }
+  .party-result-header .badge-2022 {
+    font-size: 12px; background: rgba(255,255,255,0.1);
+    border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px;
+  }
+
+  .voter-row {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+  }
+  .voter-name   { width: 120px; font-size: 13px; font-weight: 600; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .voter-bar-wrap { flex: 1; background: rgba(255,255,255,0.06); border-radius: 4px; height: 10px; overflow: hidden; min-width: 0; }
+  .voter-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+  .voter-seats  { width: 64px; text-align: right; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .voter-avg    { font-size: 12px; opacity: 0.55; }
+
+  /* ── PARLIAMENT ── */
   .parliament-wrap   { text-align: center; margin-top: 16px; }
   .parliament-wrap p { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.4; margin-bottom: 6px; }
 
+  /* ── SUCCESS ── */
   .success-wrap     { text-align: center; padding: 36px 16px; }
   .success-wrap .emoji { font-size: 64px; margin-bottom: 12px; }
   .success-wrap h2  { font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 8px; }
@@ -173,14 +231,20 @@
 
   .home-parties { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 
-  .center-msg     { text-align: center; padding: 60px 24px; opacity: 0.5; }
+  .center-msg      { text-align: center; padding: 60px 24px; opacity: 0.5; }
   .center-msg .big { font-size: 48px; margin-bottom: 10px; }
 
   .error-msg { color: #ff5555; font-size: 13px; margin-top: 10px; }
 
+  .section-label {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    opacity: 0.4; margin-bottom: 12px; margin-top: 24px;
+  }
+
   @media (max-width: 500px) {
     .card { padding: 20px 16px; }
     .card-title { font-size: 22px; }
+    .party-filter-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
   }
 </style>
 
@@ -263,9 +327,29 @@
   <div id="view-overview" style="display:none">
     <div class="card">
       <div class="card-title">Alle <span class="accent">voorspellingen</span></div>
-      <p class="muted">Klik op een naam om de volledige verdeling te zien.</p>
-    </div>
-    <div id="overview-list"></div>
+      <p class="muted">Bekijk per persoon of filter op partij om te zien wie iedereen hoeveel zetels geeft.</p>
+
+```
+  <!-- Tab switcher -->
+  <div class="ov-tabs">
+    <button class="ov-tab active" id="tab-persons" onclick="switchTab('persons')">👤 Per persoon</button>
+    <button class="ov-tab"        id="tab-party"   onclick="switchTab('party')">🏛️ Per partij</button>
+  </div>
+</div>
+
+<!-- Per-person list -->
+<div id="ov-persons"></div>
+
+<!-- Per-party filter -->
+<div id="ov-party" style="display:none">
+  <div class="card" style="padding-bottom:20px">
+    <p class="section-label">Kies een partij</p>
+    <div class="party-filter-grid" id="party-filter-grid"></div>
+  </div>
+  <div id="party-result-wrap"></div>
+</div>
+```
+
   </div>
 
 </div>
@@ -275,17 +359,17 @@
   const TABLE       = 'predictions';
 
   const PARTIES = [
-    { name: 'VVD',          color: '#FF6600' },
-    { name: 'CDA',          color: '#007A33' },
-    { name: 'OPKOERS',      color: '#1A2F5E' },
-    { name: 'CHRISTENUNIE', color: '#00A0E3' },
-    { name: 'GL/PvdA',      color: '#84B135' },
-    { name: 'D66',          color: '#00A862' },
-    { name: 'DOEN22',       color: '#E63946' },
-    { name: 'SGH',          color: '#6A0572' },
-    { name: 'PV29',         color: '#F4A261' },
-    { name: 'FVD',          color: '#8B0000' },
-    { name: 'SGP',          color: '#003082' },
+    { name: 'VVD',          color: '#FF6600', seats2022: 3 },
+    { name: 'CDA',          color: '#007A33', seats2022: 9 },
+    { name: 'OPKOERS',      color: '#1A2F5E', seats2022: 7 },
+    { name: 'CHRISTENUNIE', color: '#00A0E3', seats2022: 7 },
+    { name: 'GL/PvdA',      color: '#84B135', seats2022: 3 },
+    { name: 'D66',          color: '#00A862', seats2022: 1 },
+    { name: 'DOEN22',       color: '#E63946', seats2022: 2 },
+    { name: 'SGH',          color: '#6A0572', seats2022: 1 },
+    { name: 'PV29',         color: '#F4A261', seats2022: 0 },
+    { name: 'FVD',          color: '#8B0000', seats2022: 0 },
+    { name: 'SGP',          color: '#003082', seats2022: 0 },
   ];
 
   const { createClient } = supabase;
@@ -293,15 +377,20 @@
 
   let predictions       = [];
   let currentPrediction = {};
+  let activeParty       = null;
+  let ovTab             = 'persons';
+
   PARTIES.forEach(p => currentPrediction[p.name] = 0);
 
   window.addEventListener('DOMContentLoaded', async () => {
     buildHomeParties();
     buildPartyInputs();
+    buildPartyFilterGrid();
     await loadPredictions();
     showView('home');
   });
 
+  // ── SUPABASE ──────────────────────────────────────────────
   async function loadPredictions() {
     const { data, error } = await db
       .from(TABLE)
@@ -318,6 +407,7 @@
     return error;
   }
 
+  // ── VIEWS ─────────────────────────────────────────────────
   function showView(v) {
     ['home','form','success','overview'].forEach(id => {
       document.getElementById('view-' + id).style.display = 'none';
@@ -341,123 +431,23 @@
       : `${predictions.length} ${predictions.length === 1 ? 'deelnemer' : 'deelnemers'} al ingevuld`;
   }
 
-  function buildHomeParties() {
-    const wrap = document.getElementById('home-parties');
-    PARTIES.forEach(p => {
-      const tag = document.createElement('span');
-      tag.className = 'tag';
-      tag.style.cssText = `background:${p.color};color:#fff`;
-      tag.textContent   = p.name;
-      wrap.appendChild(tag);
-    });
-  }
-
-  function buildPartyInputs() {
-    const wrap = document.getElementById('party-inputs');
-    PARTIES.forEach(p => {
-      const row = document.createElement('div');
-      row.className = 'party-row';
-      row.innerHTML = `
-        <div class="party-name">
-          <div class="party-dot" style="background:${p.color}"></div>
-          <span>${p.name}</span>
-        </div>
-        <div class="bar-wrap">
-          <div class="bar-fill" id="bar-${p.name}" style="background:${p.color};width:0%"></div>
-        </div>
-        <input type="number" class="seat-input" id="inp-${p.name}"
-          min="0" max="33" value="0"
-          oninput="handleInput('${p.name}', this.value)" />
-        <div class="pct-label" id="pct-${p.name}">—</div>
-      `;
-      wrap.appendChild(row);
-    });
-  }
-
-  function handleInput(party, val) {
-    const num     = Math.max(0, parseInt(val) || 0);
-    const current = currentPrediction[party];
-    const total   = Object.values(currentPrediction).reduce((a,b) => a+b, 0);
-    if (total + (num - current) > TOTAL_SEATS) {
-      document.getElementById('inp-' + party).value = current;
-      return;
-    }
-    currentPrediction[party] = num;
-    updateCounterUI();
-    updateBarUI(party);
-  }
-
-  function updateBarUI(party) {
-    const val = currentPrediction[party];
-    const pct = (val / TOTAL_SEATS * 100).toFixed(0);
-    document.getElementById('bar-' + party).style.width = pct + '%';
-    document.getElementById('pct-' + party).textContent = val > 0 ? pct + '%' : '—';
-  }
-
-  function updateCounterUI() {
-    const total = Object.values(currentPrediction).reduce((a,b) => a+b, 0);
-    const rem   = TOTAL_SEATS - total;
-    const btn   = document.getElementById('submit-btn');
-
-    document.getElementById('counter-num').textContent = rem;
-    document.getElementById('counter-sub').textContent = `${total} van ${TOTAL_SEATS} vergeven`;
-
-    if (rem === 0) {
-      document.getElementById('seat-counter').className     = 'seat-counter done';
-      document.getElementById('counter-label').textContent  = '✅ Alle zetels verdeeld!';
-      btn.disabled    = false;
-      btn.textContent = 'Verstuur mijn voorspelling 🗳️';
-    } else {
-      document.getElementById('seat-counter').className     = 'seat-counter remaining';
-      document.getElementById('counter-label').textContent  = 'Zetels nog te verdelen';
-      btn.disabled    = true;
-      btn.textContent = `Verdeel nog ${rem} zetel${rem !== 1 ? 's' : ''}`;
-    }
-  }
-
-  function resetForm() {
-    document.getElementById('input-name').value    = '';
-    document.getElementById('form-error').style.display = 'none';
-    PARTIES.forEach(p => {
-      currentPrediction[p.name] = 0;
-      document.getElementById('inp-' + p.name).value = 0;
-      updateBarUI(p.name);
-    });
-    updateCounterUI();
-  }
-
-  async function submitPrediction() {
-    const name  = document.getElementById('input-name').value.trim();
-    const errEl = document.getElementById('form-error');
-    const total = Object.values(currentPrediction).reduce((a,b) => a+b, 0);
-
-    errEl.style.display = 'none';
-    if (!name)                 { errEl.textContent = 'Vul je naam in.';            errEl.style.display = 'block'; return; }
-    if (total !== TOTAL_SEATS) { errEl.textContent = 'Verdeel precies 33 zetels.'; errEl.style.display = 'block'; return; }
-
-    const btn = document.getElementById('submit-btn');
-    btn.disabled = true; btn.textContent = 'Opslaan...';
-
-    const snap    = { ...currentPrediction };
-    const saveErr = await savePrediction(name, snap);
-
-    if (saveErr) {
-      errEl.textContent   = 'Opslaan mislukt: ' + saveErr.message;
-      errEl.style.display = 'block';
-      btn.disabled        = false;
-      btn.textContent     = 'Verstuur mijn voorspelling 🗳️';
-      return;
-    }
-
-    await loadPredictions();
-    document.getElementById('success-name-msg').textContent =
-      `${name} heeft de zetelverdeling ingevuld. Nu wachten op de uitslag...`;
-    drawParliament('success-parliament', snap);
-    showView('success');
+  // ── OVERVIEW TABS ─────────────────────────────────────────
+  function switchTab(tab) {
+    ovTab = tab;
+    document.getElementById('tab-persons').classList.toggle('active', tab === 'persons');
+    document.getElementById('tab-party').classList.toggle('active',   tab === 'party');
+    document.getElementById('ov-persons').style.display = tab === 'persons' ? 'block' : 'none';
+    document.getElementById('ov-party').style.display   = tab === 'party'   ? 'block' : 'none';
   }
 
   function renderOverview() {
-    const wrap = document.getElementById('overview-list');
+    renderPersons();
+    switchTab(ovTab);
+  }
+
+  // ── PER-PERSON VIEW ───────────────────────────────────────
+  function renderPersons() {
+    const wrap = document.getElementById('ov-persons');
     wrap.innerHTML = '';
 
     if (predictions.length === 0) {
@@ -519,6 +509,12 @@
         const seats = pred.prediction[p.name] || 0;
         if (seats === 0) return;
         const pct = (seats / TOTAL_SEATS * 100).toFixed(0);
+        const diff2022 = p.seats2022 !== undefined
+          ? seats - p.seats2022
+          : null;
+        const diffHtml = diff2022 !== null && p.seats2022 > 0
+          ? `<span style="font-size:11px;opacity:0.55;margin-left:6px">(${diff2022 >= 0 ? '+' : ''}${diff2022} t.o.v. 2022)</span>`
+          : '';
         rowWrap.innerHTML += `
           <div class="detail-row">
             <div class="party-name">
@@ -528,7 +524,7 @@
             <div class="bar-wrap" style="flex:1">
               <div class="bar-fill" style="background:${p.color};width:${pct}%"></div>
             </div>
-            <div class="detail-seats">${seats} zetels</div>
+            <div class="detail-seats">${seats} zetels${diffHtml}</div>
           </div>`;
       });
 
@@ -536,6 +532,234 @@
     }
   }
 
+  // ── PER-PARTY FILTER VIEW ─────────────────────────────────
+  function buildPartyFilterGrid() {
+    const grid = document.getElementById('party-filter-grid');
+    PARTIES.forEach(p => {
+      const btn = document.createElement('button');
+      btn.className   = 'party-filter-btn';
+      btn.id          = 'pfbtn-' + p.name;
+      btn.style.background = p.color;
+      btn.innerHTML = `
+        ${p.name}
+        <span class="seats-2022">${p.seats2022 > 0 ? `2022: ${p.seats2022} zetels` : 'nieuw'}</span>
+      `;
+      btn.addEventListener('click', () => selectPartyFilter(p));
+      grid.appendChild(btn);
+    });
+  }
+
+  function selectPartyFilter(party) {
+    activeParty = party;
+
+    // Update button styles
+    PARTIES.forEach(p => {
+      const btn = document.getElementById('pfbtn-' + p.name);
+      if (btn) btn.classList.toggle('chosen', p.name === party.name);
+    });
+
+    renderPartyResult(party);
+  }
+
+  function renderPartyResult(party) {
+    const wrap = document.getElementById('party-result-wrap');
+
+    if (predictions.length === 0) {
+      wrap.innerHTML = `<div class="card center-msg" style="margin-top:16px">
+        <div class="big">📭</div><p>Nog geen voorspellingen.</p>
+      </div>`;
+      return;
+    }
+
+    // Collect seat values per person for this party
+    const rows = predictions.map(pred => ({
+      name:  pred.name,
+      seats: pred.prediction[party.name] || 0,
+    })).sort((a, b) => b.seats - a.seats);
+
+    const avg    = rows.reduce((s, r) => s + r.seats, 0) / rows.length;
+    const maxVal = Math.max(...rows.map(r => r.seats), party.seats2022 || 0, 1);
+
+    const diff2022Text = party.seats2022 > 0
+      ? `2022: ${party.seats2022} zetels`
+      : 'Nieuwe partij (geen zetel in 2022)';
+
+    let html = `
+      <div class="party-result-panel">
+        <div class="party-result-header">
+          <div class="party-dot" style="background:${party.color};width:14px;height:14px;border-radius:3px;flex-shrink:0"></div>
+          <h3>${party.name}</h3>
+          <span class="badge-2022">📊 ${diff2022Text}</span>
+        </div>
+    `;
+
+    // 2022 reference bar
+    if (party.seats2022 > 0) {
+      const pct2022 = (party.seats2022 / maxVal * 100).toFixed(0);
+      html += `
+        <div class="voter-row" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+          <div class="voter-name" style="opacity:0.55">Uitslag 2022</div>
+          <div class="voter-bar-wrap">
+            <div class="voter-bar-fill" style="background:${party.color};opacity:0.4;width:${pct2022}%;
+              background-image: repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(255,255,255,0.1) 4px,rgba(255,255,255,0.1) 8px)">
+            </div>
+          </div>
+          <div class="voter-seats" style="opacity:0.55">${party.seats2022} zetels</div>
+        </div>`;
+    }
+
+    // Per-person rows
+    rows.forEach(r => {
+      const pct = (r.seats / maxVal * 100).toFixed(0);
+      html += `
+        <div class="voter-row">
+          <div class="voter-name">${r.name}</div>
+          <div class="voter-bar-wrap">
+            <div class="voter-bar-fill" style="background:${party.color};width:${pct}%"></div>
+          </div>
+          <div class="voter-seats">${r.seats} zetels</div>
+        </div>`;
+    });
+
+    // Average line
+    html += `
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);
+        display:flex;align-items:center;gap:10px;font-size:13px">
+        <div style="width:110px;opacity:0.6;flex-shrink:0">Gemiddelde</div>
+        <div class="voter-bar-wrap">
+          <div class="voter-bar-fill" style="background:${party.color};opacity:0.7;width:${(avg/maxVal*100).toFixed(0)}%"></div>
+        </div>
+        <div class="voter-seats" style="color:${party.color}">${avg.toFixed(1)} zetels</div>
+      </div>
+    `;
+
+    html += `</div>`;
+    wrap.innerHTML = html;
+  }
+
+  // ── FORM ──────────────────────────────────────────────────
+  function buildHomeParties() {
+    const wrap = document.getElementById('home-parties');
+    PARTIES.forEach(p => {
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.style.cssText = `background:${p.color};color:#fff`;
+      tag.textContent   = p.name;
+      wrap.appendChild(tag);
+    });
+  }
+
+  function buildPartyInputs() {
+    const wrap = document.getElementById('party-inputs');
+    PARTIES.forEach(p => {
+      const row = document.createElement('div');
+      row.className = 'party-row';
+      const seats2022label = p.seats2022 > 0
+        ? `<span style="font-size:10px;opacity:0.45;margin-left:4px">2022: ${p.seats2022}</span>`
+        : `<span style="font-size:10px;opacity:0.35;margin-left:4px">nieuw</span>`;
+      row.innerHTML = `
+        <div class="party-name">
+          <div class="party-dot" style="background:${p.color}"></div>
+          <div>
+            <div>${p.name}</div>
+            ${seats2022label}
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-fill" id="bar-${p.name}" style="background:${p.color};width:0%"></div>
+        </div>
+        <input type="number" class="seat-input" id="inp-${p.name}"
+          min="0" max="33" value="0"
+          oninput="handleInput('${p.name}', this.value)" />
+        <div class="pct-label" id="pct-${p.name}">—</div>
+      `;
+      wrap.appendChild(row);
+    });
+  }
+
+  function handleInput(party, val) {
+    const num     = Math.max(0, parseInt(val) || 0);
+    const current = currentPrediction[party];
+    const total   = Object.values(currentPrediction).reduce((a,b) => a+b, 0);
+    if (total + (num - current) > TOTAL_SEATS) {
+      document.getElementById('inp-' + party).value = current;
+      return;
+    }
+    currentPrediction[party] = num;
+    updateCounterUI();
+    updateBarUI(party);
+  }
+
+  function updateBarUI(party) {
+    const val = currentPrediction[party];
+    const pct = (val / TOTAL_SEATS * 100).toFixed(0);
+    document.getElementById('bar-' + party).style.width = pct + '%';
+    document.getElementById('pct-' + party).textContent = val > 0 ? pct + '%' : '—';
+  }
+
+  function updateCounterUI() {
+    const total = Object.values(currentPrediction).reduce((a,b) => a+b, 0);
+    const rem   = TOTAL_SEATS - total;
+    const btn   = document.getElementById('submit-btn');
+
+    document.getElementById('counter-num').textContent = rem;
+    document.getElementById('counter-sub').textContent = `${total} van ${TOTAL_SEATS} vergeven`;
+
+    if (rem === 0) {
+      document.getElementById('seat-counter').className    = 'seat-counter done';
+      document.getElementById('counter-label').textContent = '✅ Alle zetels verdeeld!';
+      btn.disabled    = false;
+      btn.textContent = 'Verstuur mijn voorspelling 🗳️';
+    } else {
+      document.getElementById('seat-counter').className    = 'seat-counter remaining';
+      document.getElementById('counter-label').textContent = 'Zetels nog te verdelen';
+      btn.disabled    = true;
+      btn.textContent = `Verdeel nog ${rem} zetel${rem !== 1 ? 's' : ''}`;
+    }
+  }
+
+  function resetForm() {
+    document.getElementById('input-name').value          = '';
+    document.getElementById('form-error').style.display  = 'none';
+    PARTIES.forEach(p => {
+      currentPrediction[p.name] = 0;
+      document.getElementById('inp-' + p.name).value = 0;
+      updateBarUI(p.name);
+    });
+    updateCounterUI();
+  }
+
+  async function submitPrediction() {
+    const name  = document.getElementById('input-name').value.trim();
+    const errEl = document.getElementById('form-error');
+    const total = Object.values(currentPrediction).reduce((a,b) => a+b, 0);
+
+    errEl.style.display = 'none';
+    if (!name)                 { errEl.textContent = 'Vul je naam in.';            errEl.style.display = 'block'; return; }
+    if (total !== TOTAL_SEATS) { errEl.textContent = 'Verdeel precies 33 zetels.'; errEl.style.display = 'block'; return; }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true; btn.textContent = 'Opslaan...';
+
+    const snap    = { ...currentPrediction };
+    const saveErr = await savePrediction(name, snap);
+
+    if (saveErr) {
+      errEl.textContent   = 'Opslaan mislukt: ' + saveErr.message;
+      errEl.style.display = 'block';
+      btn.disabled        = false;
+      btn.textContent     = 'Verstuur mijn voorspelling 🗳️';
+      return;
+    }
+
+    await loadPredictions();
+    document.getElementById('success-name-msg').textContent =
+      `${name} heeft de zetelverdeling ingevuld. Nu wachten op de uitslag...`;
+    drawParliament('success-parliament', snap);
+    showView('success');
+  }
+
+  // ── PARLIAMENT SVG ────────────────────────────────────────
   function drawParliament(svgId, pred) {
     const svg = document.getElementById(svgId);
     svg.innerHTML = '';
@@ -548,10 +772,10 @@
     rows.forEach((count, ri) => {
       const radius = 40 + ri * 22;
       for (let si = 0; si < count; si++) {
-        const angle  = Math.PI + (si / (count - 1)) * Math.PI;
-        const x      = 120 + radius * Math.cos(angle);
-        const y      = 110 + radius * Math.sin(angle);
-        const c      = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        const angle = Math.PI + (si / (count - 1)) * Math.PI;
+        const x     = 120 + radius * Math.cos(angle);
+        const y     = 110 + radius * Math.sin(angle);
+        const c     = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         c.setAttribute('cx',      x);
         c.setAttribute('cy',      y);
         c.setAttribute('r',       7);
